@@ -97,7 +97,7 @@ public class OI {
 
 	public Joystick driverStick = new Joystick(0);
 	
-	public Button autoButton = new JoystickButton(driverStick, Controller.X.buttonNum); // x button,
+	public Button autoButton = new JoystickButton(driverStick, Controller.Y.buttonNum);
 	public Button outTakeButton = new JoystickButton(driverStick, Controller.LB.buttonNum);
 	public Button inTakeButton = new JoystickButton(driverStick, Controller.RB.buttonNum);
 	public Joystick operatorStick = new Joystick(1);
@@ -115,7 +115,7 @@ public class OI {
 	//Ramp--------------------------------------------------------
 	public PWMVictorSPX rampBottomMotor = new PWMVictorSPX(6);
 	public PWMVictorSPX rampTopMotor = new PWMVictorSPX(7);
-	public Button rampButton = new JoystickButton(driverStick, Controller.B.getButtonMapping());
+	public Button rampButton = new JoystickButton(driverStick, Controller.START.getButtonMapping());
 	
 
 	//Hatch-------------------------------------------------------
@@ -125,10 +125,9 @@ public class OI {
 	public DigitalInput hatchTopSwitch = new DigitalInput(1);
 	public DigitalInput hatchBottomSwitch = new DigitalInput(2);
 
-	public Button intakeButton = new JoystickButton(driverStick, Controller.LB.getButtonMapping());
-	public Button outtakeButton = new JoystickButton(driverStick, Controller.RB.getButtonMapping());
-	public Button hatchUpBotton = new JoystickButton(driverStick, Controller.Y.getButtonMapping());
-	public Button hatchDownButton = new JoystickButton(driverStick, Controller.A.getButtonMapping());
+	public Button servoButton = new JoystickButton(driverStick, Controller.A.getButtonMapping());
+	public Button hatchUpButton = new JoystickButton(driverStick, Controller.X.getButtonMapping());
+	public Button hatchDownButton = new JoystickButton(driverStick, Controller.B.getButtonMapping());
 
 
 	
@@ -147,9 +146,8 @@ public class OI {
 
 	public void init(){
 		//Hatch----------------------------------------------
-		intakeButton.whenPressed(new Intake());
-		outTakeButton.whenPressed(new Outtake());
-		hatchUpBotton.whenPressed(new ToTop(0.5));
+		servoButton.whenPressed(new ActuateHatch());
+		hatchUpButton.whenPressed(new ToTop(0.5));
 		hatchDownButton.whenPressed(new ToBottom(0.5));
 
 		//Ramp-----------------------------------------------

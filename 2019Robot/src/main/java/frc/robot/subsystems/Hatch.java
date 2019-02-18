@@ -15,6 +15,7 @@ public class Hatch extends Subsystem {
     private DigitalInput topSwitch;
     private DigitalInput bottomSwitch;
     private PWMVictorSPX windowMotor;
+    public boolean isUp;
 
     //Theese angles are wrong but like we cant really fix that because they dont give us testing time
     private final int up = 135;
@@ -26,6 +27,7 @@ public class Hatch extends Subsystem {
         this.backSwitch = Robot.oi.hatchBackSwitch;
         this.topSwitch = Robot.oi.hatchTopSwitch;
         this.bottomSwitch = Robot.oi.hatchBottomSwitch;
+        this.isUp = true;
 
     }
 
@@ -54,14 +56,6 @@ public class Hatch extends Subsystem {
         return (int) servo.getAngle();
     }
 
-    public boolean isUp() {
-        return Math.abs(this.getAngle() - up) < 5;
-    }
-
-    public boolean isDown() {
-        return Math.abs(this.getAngle() - down) < 5;
-    }
-
     public boolean getBackSwitch() {
         return backSwitch.get();
     }
@@ -80,18 +74,19 @@ public class Hatch extends Subsystem {
     }
 
     public void setWindowMotorSpeed(double speed) {
-        speed = -speed;
+        // speed = speed;
 
-        if (speed == 0){
-        return;
-        }
-        if (speed > 0){
-        speed = (getTopSwitch()) ? 0 : speed;
-        return;
-        }else{
-        speed = (getBottomSwitch()) ? 0 : speed;
-        return;
-        }
+        // if (speed == 0){
+        // return;
+        // }
+        // if (speed > 0){
+        // speed = (getTopSwitch()) ? 0 : speed;
+        // return;
+        // }else{
+        // speed = (getBottomSwitch()) ? 0 : speed;
+        // return;
+        // }
+        this.setWindowMotorSpeedRaw(speed);
     }
 
 }

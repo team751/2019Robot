@@ -68,8 +68,7 @@ public class Robot extends TimedRobot {
 		SmartDashboard.setDefaultNumber("Speed Cap", 1.0);
 		SmartDashboard.putBoolean("Fine Mode", false);
 		SmartDashboard.putNumber("Tolerance", 1.0);
-		SmartDashboard.putData("Intake", new Intake());
-		SmartDashboard.putData("Outtake", new Outtake());
+		SmartDashboard.putData("Actuate Hatch", new ActuateHatch());
 		SmartDashboard.putData("Hatch Manual", new ManualHatch());
 		SmartDashboard.putData("Drivetrain", drivetrain.difDrive);
 		SmartDashboard.putNumber("Left Speed Constant", 1.0);
