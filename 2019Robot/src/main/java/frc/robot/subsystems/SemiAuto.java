@@ -23,6 +23,8 @@
 //         table = new NTPReader();
 //         SmartDashboard.getNumber("Tolerance", 5.0);
 //         System.out.println("Error: " + table.getError());
+
+//         // Turn on the lime light and adjust exposure to GRIP levels
 //     }
 
 //     /*
@@ -38,8 +40,6 @@
 //     // Reset the error and integral calculations from the previous turn or
 //     // driveStraight command.
 //     public void resetPID() {
-//         this.prevIntegral = 0.0;
-//         this.prevError = 0.0;
 //     }
 
 //     public void align() {
@@ -115,6 +115,12 @@
 //     // Make this return true when this Command no longer needs to run execute()
 //     protected boolean isFinished() {
 //         double error = table.getError();
+//         this.prevError = 0.0;
+//         this.prevIntegral = 0.0;
+
+//         // Turn off lime light and set exposure back
+
+
 //         return (Math.abs(error) < tolerance);
 //     }
 
