@@ -1,6 +1,5 @@
 package frc.robot.commands.Hatch;
 
-import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.OI;
 import frc.robot.Robot;
@@ -26,8 +25,8 @@ public class HatchDefault extends Command {
      * initialize() and have an empty execute() method.
      */
     protected void execute() {
-        double speed = Robot.oi.driverStick.getRawAxis(OI.Controller.LT.getButtonMapping());
-        speed -= Robot.oi.driverStick.getRawAxis(OI.Controller.RT.getButtonMapping());
+        double speed = Robot.oi.driverStick.getRawAxis(OI.Controller.RT.getButtonMapping());
+        speed -= Robot.oi.driverStick.getRawAxis(OI.Controller.LT.getButtonMapping());
         Robot.hatch.setWindowMotorSpeed(speed);
     }
 

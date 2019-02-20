@@ -1,10 +1,11 @@
 package frc.robot.arduino;
 
 import edu.wpi.first.wpilibj.SerialPort;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class ArduinoDataListener implements Runnable {
 	private double orientation;
-	private double leftDistance, rightDistance;
+	private double leftDistance, rightDistance, frontDistance;
 	private SerialPort arduinoPort;
 	private String arduinoMessage;
 	private boolean arduinoOverwrite;
@@ -50,7 +51,7 @@ public class ArduinoDataListener implements Runnable {
 				connect();
 				System.out.println("attemptedconnecting");
 			} else {
-				//System.out.println("fetchingdata");
+				// System.out.println("fetchingdata");
 				fetchData();
 			}
 		}
@@ -76,20 +77,14 @@ public class ArduinoDataListener implements Runnable {
 			// System.out.println("Received String: " + message);
 			String[] data = arduinoMessage.split("-");
 
-			System.out.println("got data");
-
-			switch (data[0].toLowerCase()) {
-			case "imu":
-				orientation = Double.parseDouble(data[1]);
-				break;
-			case "us":
-				leftDistance = Double.parseDouble(data[1]);
-				rightDistance = Double.parseDouble(data[2]);
-				break;
-			default:
-				System.out.println("Non-typical data sent: " + data[0]);
-				break;
-			}
+			this.orientation = Double.parseDouble(data[0]);
+			this.leftDistance = Integer.parseInt(data[1]);
+			this.rightDistance = Integer.parseInt(data[2]);
+			this.frontDistance = Integer.parseInt(data[3]);
+			SmartDashboard.putNumber("Orientation", this.orientation);
+			SmartDashboard.putNumber("Left Side Distance", this.leftDistance);
+			SmartDashboard.putNumber("Right Side Distance", this.rightDistance);
+			SmartDashboard.putNumber("Front Distance", this.frontDistance);
 
 			arduinoOverwrite = true;
 		}

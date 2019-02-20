@@ -1,22 +1,16 @@
 package frc.robot;
 
 import frc.robot.arduino.ArduinoDataListener;
-import frc.robot.commands.DriveCircle;
 import frc.robot.commands.Hatch.*;
 import frc.robot.commands.*;
 import frc.robot.subsystems.*;
-import edu.wpi.first.networktables.NetworkTableEntry;
-import edu.wpi.first.networktables.NetworkTableInstance;
-import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.TimedRobot;
-import edu.wpi.first.wpilibj.smartdashboard.*;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -43,8 +37,6 @@ public class Robot extends TimedRobot {
 	public static Command autonomousCommand;
 	public static boolean crushed;
 	public static boolean autoEnabled = false;
-
-	private int autoCount = 0;
 
 	/**
 	 * This function is run when the robot is first started up and should be used
@@ -73,12 +65,11 @@ public class Robot extends TimedRobot {
 		SmartDashboard.putData("Drivetrain", drivetrain.difDrive);
 		SmartDashboard.putNumber("Left Speed Constant", 1.0);
 		SmartDashboard.putNumber("Right Speed Constant", 1.0);
+		SmartDashboard.putData("Toggle Light", new ToggleLimelight());
 	}
 
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();
-
-		// System.out.println(SDL);
 
 		if (SmartDashboard.getBoolean("Fine Mode", false)) {
 			MultiSpeedController.speedFactor = (0.25);
@@ -87,8 +78,6 @@ public class Robot extends TimedRobot {
 		}
 
 		SmartDashboard.putData(pdp);
-
-		// System.out.println(MultiSpeedController.speedFactor);
 	}
 
 	public void autonomousInit() {
@@ -129,7 +118,6 @@ public class Robot extends TimedRobot {
 		if (autoEnabled) {
 			autonomousCommand.cancel();
 		}
-		//System.out.println("disabled autoenabled:" + autoEnabled);
 	}
 
 	/**
@@ -143,12 +131,6 @@ public class Robot extends TimedRobot {
 			MultiSpeedController.speedFactor = (SmartDashboard.getNumber("Speed Cap", 1));
 		}
 		SmartDashboard.putData(pdp);
-
-
-		// ADL.run();
-
-		//System.out.println("Distance = " + ntpReader.getDistance());
-
 	}
 
 	/**

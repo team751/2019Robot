@@ -18,8 +18,8 @@ public class Hatch extends Subsystem {
     public boolean isUp;
 
     //Theese angles are wrong but like we cant really fix that because they dont give us testing time
-    private final int up = 135;
-    private final int down = 10;
+    private final int up = 0;
+    private final int down = 140;
 
     public Hatch() {
         this.servo = Robot.oi.hatchServo;
@@ -74,19 +74,20 @@ public class Hatch extends Subsystem {
     }
 
     public void setWindowMotorSpeed(double speed) {
-        // speed = speed;
 
-        // if (speed == 0){
-        // return;
-        // }
-        // if (speed > 0){
-        // speed = (getTopSwitch()) ? 0 : speed;
-        // return;
-        // }else{
-        // speed = (getBottomSwitch()) ? 0 : speed;
-        // return;
-        // }
+        if (speed == 0){
+        return;
+        }
+        if (speed > 0){
+        speed = (getTopSwitch()) ? 0 : speed;
         this.setWindowMotorSpeedRaw(speed);
+        return;
+        }else{
+        speed = (getBottomSwitch()) ? 0 : speed;
+        this.setWindowMotorSpeedRaw(speed);
+        return;
+        }
+        //this.setWindowMotorSpeedRaw(speed);
     }
 
 }

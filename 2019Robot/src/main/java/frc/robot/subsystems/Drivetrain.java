@@ -18,13 +18,14 @@ public class Drivetrain extends Subsystem {
     }
 
     public void arcadeDrive(double x, double y, boolean bool) {
-        if (Robot.oi.hatchBackSwitch.get()) {
-            if (-x > 0) {
-                difDrive.arcadeDrive(0, y, bool);
-            }
-        } else {
-            difDrive.arcadeDrive(-x, y, bool);
-        }
+        // if (Robot.oi.hatchBackSwitch.get()) {
+        //     if (-x > 0) {
+        //         difDrive.arcadeDrive(0, y, bool);
+        //     }
+        // } else {
+        //     difDrive.arcadeDrive(-x, y, bool);
+        // }
+        difDrive.arcadeDrive(-x, y, bool);
     }
 
 }
