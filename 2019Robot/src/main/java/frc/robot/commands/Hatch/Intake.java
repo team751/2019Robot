@@ -12,7 +12,7 @@ public class Intake extends Command {
     }
 
     protected void initialize() {
-
+        this.timer = 50;
     }
 
     protected void execute() {

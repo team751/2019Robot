@@ -66,6 +66,7 @@ public class Robot extends TimedRobot {
 		SmartDashboard.putNumber("Left Speed Constant", 1.0);
 		SmartDashboard.putNumber("Right Speed Constant", 1.0);
 		SmartDashboard.putData("Toggle Light", new ToggleLimelight());
+		SmartDashboard.putData("Correct Angle", new CorrectAngle());
 	}
 
 	public void disabledPeriodic() {

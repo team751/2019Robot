@@ -4,6 +4,7 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.PWMVictorSPX;
 import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
 import frc.robot.commands.Hatch.HatchDefault;
 
@@ -18,8 +19,7 @@ public class Hatch extends Subsystem {
     public boolean isUp;
 
     //Theese angles are wrong but like we cant really fix that because they dont give us testing time
-    private final int up = 0;
-    private final int down = 140;
+
 
     public Hatch() {
         this.servo = Robot.oi.hatchServo;
@@ -28,7 +28,8 @@ public class Hatch extends Subsystem {
         this.topSwitch = Robot.oi.hatchTopSwitch;
         this.bottomSwitch = Robot.oi.hatchBottomSwitch;
         this.isUp = true;
-
+        SmartDashboard.putNumber("Up", 0);
+        SmartDashboard.putNumber("Down", 127);
     }
 
     @Override
@@ -45,11 +46,11 @@ public class Hatch extends Subsystem {
     }
 
     public void turnUp() {
-        this.setAngle(up);
+        this.setAngle((int)SmartDashboard.getNumber("Up", 0));
     }
 
     public void turnDown() {
-        this.setAngle(down);
+        this.setAngle((int)SmartDashboard.getNumber("Down", 127));
     }
 
     public int getAngle() {
@@ -79,7 +80,7 @@ public class Hatch extends Subsystem {
         return;
         }
         if (speed > 0){
-        speed = (getTopSwitch()) ? 0 : speed;
+        //speed = (getTopSwitch()) ? 0 : speed;
         this.setWindowMotorSpeedRaw(speed);
         return;
         }else{
