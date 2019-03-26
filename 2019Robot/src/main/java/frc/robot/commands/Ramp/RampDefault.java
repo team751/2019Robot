@@ -11,12 +11,12 @@ public class RampDefault extends Command {
 
     protected void initialize() {
         Robot.ramp.setBottomSpeed(0);
-        Robot.ramp.setTopSpeed(0);
+        //Robot.ramp.setTopSpeed(0);
     }
 
     protected void execute() {
         Robot.ramp.setBottomSpeed(0);
-        Robot.ramp.setTopSpeed(0);
+        //Robot.ramp.setTopSpeed(0);
     }
 
     protected boolean isFinished() {

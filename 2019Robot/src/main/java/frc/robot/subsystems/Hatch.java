@@ -1,25 +1,34 @@
 package frc.robot.subsystems;
 
+import edu.wpi.first.wpilibj.AnalogTrigger;
+import edu.wpi.first.wpilibj.Counter;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.PWMVictorSPX;
 import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.Robot;
 import frc.robot.commands.Hatch.HatchDefault;
+import frc.robot.commands.Hatch.SetSeatAngle;
 
 //ansa made this component :)
 public class Hatch extends Subsystem {
-
+    public double angle = 0;
     private Servo servo;
     private DigitalInput backSwitch;
     private DigitalInput topSwitch;
     private DigitalInput bottomSwitch;
     private PWMVictorSPX windowMotor;
+    public PWMVictorSPX seatMotor;
     public boolean isUp;
+    //public AnalogTrigger test;
+    public Counter counter;
 
     //Theese angles are wrong but like we cant really fix that because they dont give us testing time
     private final int up = 0;
-    private final int down = 140;
+    private final int down = 180;
+    
+
+
 
     public Hatch() {
         this.servo = Robot.oi.hatchServo;
@@ -27,9 +36,15 @@ public class Hatch extends Subsystem {
         this.backSwitch = Robot.oi.hatchBackSwitch;
         this.topSwitch = Robot.oi.hatchTopSwitch;
         this.bottomSwitch = Robot.oi.hatchBottomSwitch;
+        this.seatMotor = Robot.oi.seatMotor;
         this.isUp = true;
+        this.counter = Robot.oi.hatchEncoder;
+        this.seatMotor.set(0);
+        this.angle=0;
 
     }
+
+
 
     @Override
     protected void initDefaultCommand() {
@@ -40,17 +55,18 @@ public class Hatch extends Subsystem {
 
     }
 
-    public void setAngle(int state) {
-        this.servo.setAngle(state);
-    }
+    // public void setAngle(int state) {
+    //     //this.servo.setAngle(state);
+    //     new SetSeatAngle(state);
+    // }
 
-    public void turnUp() {
-        this.setAngle(up);
-    }
+    // public void turnUp() {
+    //     this.setAngle(up);
+    // }
 
-    public void turnDown() {
-        this.setAngle(down);
-    }
+    // public void turnDown() {
+    //     this.setAngle(down);
+    // }
 
     public int getAngle() {
         return (int) servo.getAngle();

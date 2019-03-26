@@ -1,33 +1,33 @@
-package frc.robot.commands.Hatch;
+// package frc.robot.commands.Hatch;
 
-import edu.wpi.first.wpilibj.command.Command;
-import frc.robot.Robot;
+// import edu.wpi.first.wpilibj.command.Command;
+// import frc.robot.Robot;
 
-public class ActuateHatch extends Command {
-    private boolean finished;
+// public class ActuateHatch extends Command {
+//     private boolean finished;
 
-    public ActuateHatch() {
-        requires(Robot.hatch);
-        finished = false;
-    }
+//     public ActuateHatch() {
+//         requires(Robot.hatch);
+//         finished = false;
+//     }
 
-    protected void initialize() {
+//     protected void initialize() {
+//         if (Robot.hatch.isUp) {
+//             Robot.hatch.isUp = false;
+//             Robot.hatch.turnDown();
+            
+//         } else {
+//             Robot.hatch.isUp = true;
+//             Robot.hatch.turnUp();
+            
+//         }
+//     }
 
-    }
+//     protected void execute() {
+//     }
 
-    protected void execute() {
-        if (Robot.hatch.isUp) {
-            Robot.hatch.turnDown();
-            Robot.hatch.isUp = false;
-        } else {
-            Robot.hatch.turnUp();
-            Robot.hatch.isUp = true;
-        }
-        finished = true;
-    }
+//     protected boolean isFinished() {
+//         return true;
+//     }
 
-    protected boolean isFinished() {
-        return finished;
-    }
-
-}
+// }

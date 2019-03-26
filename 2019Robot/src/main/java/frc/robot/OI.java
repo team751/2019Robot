@@ -1,7 +1,11 @@
 package frc.robot;
 
+import edu.wpi.first.wpilibj.AnalogInput;
+import edu.wpi.first.wpilibj.AnalogTrigger;
+import edu.wpi.first.wpilibj.Counter;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DigitalOutput;
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.PWMVictorSPX;
 import edu.wpi.first.wpilibj.Servo;
@@ -19,11 +23,24 @@ import frc.robot.subsystems.MultiSpeedController;
 public class OI {
 
 	/*
-	 * PINOUT -------------------------------- PWM 0 Right CIM 1 Right CIM 2 Right
-	 * CIM 3 Left CIM 4 Left CIM 5 Left CIM 6 Ramp Solenoid Branch 7 Ramp Solenoid
-	 * Branch 8 Hatch Window Motor 9 Hatch Servo
+	 * PINOUT -------------------------------- 
+	 * PWM 
+	 * 0 Right CIM 
+	 * 1 Right CIM 
+	 * 2 Right CIM 
+	 * 3 Left CIM 
+	 * 4 Left CIM 
+	 * 5 Left CIM 
+	 * 6 Ramp Solenoid Branch 
+	 * 7 Hatch Seat Motor Power (keep on)
+	 * 8 Hatch Window Motor 9 
+	 * Hatch Servo
 	 * 
-	 * DIO 0 Limit Switch Hatch Back 1 Limit Switch Hatch Top 2 Limit Switch Hatch
+	 * DIO 
+	 * 0 Limit Switch Hatch Back 
+	 * 1 Limit Switch Hatch Top 
+	 * 2 Limit Switch Hatch
+	 * 4 Hatch Encoder (Reeeeeeeeeeeeeeeeeeeeeeeeeeeee)
 	 * Bottom 3 Lime Light Relay
 	 * 
 	 * USB 0 Camera 1 Arduino
@@ -86,7 +103,6 @@ public class OI {
 
 	// Ramp--------------------------------------------------------
 	public PWMVictorSPX rampBottomMotor = new PWMVictorSPX(6);
-	public PWMVictorSPX rampTopMotor = new PWMVictorSPX(7);
 	public Button rampButton = new JoystickButton(driverStick, Controller.START.getButtonMapping());
 
 	// Hatch-------------------------------------------------------
@@ -95,17 +111,25 @@ public class OI {
 	public DigitalInput hatchBackSwitch = new DigitalInput(0);
 	public DigitalInput hatchTopSwitch = new DigitalInput(1);
 	public DigitalInput hatchBottomSwitch = new DigitalInput(2);
+	
+	public AnalogTrigger test = new AnalogTrigger(0);
+	public Counter hatchEncoder = new Counter(test);
 
-	public Button servoButton = new JoystickButton(driverStick, Controller.A.getButtonMapping());
+	public Button servoDownButton = new JoystickButton(driverStick, Controller.A.getButtonMapping());
+	public Button servoUpButton = new JoystickButton(driverStick, Controller.Y.getButtonMapping());
 	public Button hatchUpButton = new JoystickButton(driverStick, Controller.X.getButtonMapping());
 	public Button hatchDownButton = new JoystickButton(driverStick, Controller.B.getButtonMapping());
+	public PWMVictorSPX seatMotor = new PWMVictorSPX(7);
 
 	public void init() {
 		// Hatch----------------------------------------------
-		servoButton.whenPressed(new ActuateHatch());
+		servoUpButton.whenPressed(new SetSeatAngle(0));
+		servoDownButton.whenPressed(new SetSeatAngle(180));
+		//servoButton.whenPressed(new setSeatAngle(360));
 		hatchUpButton.whenPressed(new ToTop(0.5));
 		hatchDownButton.whenPressed(new Stow(0.5));
-
+		test.setLimitsVoltage(3.0, 3.0);
+		hatchEncoder.setDistancePerPulse(2.0583);
 		// Ramp-----------------------------------------------
 		rampButton.whileHeld(new Deploy());
 

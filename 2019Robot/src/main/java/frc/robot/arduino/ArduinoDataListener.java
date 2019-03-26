@@ -100,7 +100,7 @@ public class ArduinoDataListener implements Runnable {
 
 	@Override
 	public String toString() {
-		return "Orientation: " + orientation + " LeftDistance: " + leftDistance + " rightDistance: " + rightDistance;
+		return "Orientation: " + orientation + " LeftDistance: " + leftDistance + " rightDistance: " + rightDistance + " frontDistance: " + this.frontDistance;
 	}
 
 }
