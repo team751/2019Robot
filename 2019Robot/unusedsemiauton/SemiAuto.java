@@ -82,7 +82,7 @@ public class SemiAuto extends Command {
     }
 
     public void driveStraight(double initialAngle, double driveSpeed, double kp, double ki, double kd) {
-        double currentError = Robot.ADL.getOrientation() - initialAngle;
+       // double currentError = Robot.ADL.getOrientation() - initialAngle;
 
         double derivative = (currentError - prevError) * kd;
         double proportionalError = currentError * kp;

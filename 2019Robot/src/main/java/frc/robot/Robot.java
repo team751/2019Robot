@@ -34,17 +34,12 @@ public class Robot extends TimedRobot {
 
 	public static DifferentialDrive robotDrive;
 
-	public static Command autonomousCommand;
-	public static boolean crushed;
-	public static boolean autoEnabled = false;
-
 	/**
 	 * This function is run when the robot is first started up and should be used
 	 * for any initialization code.
 	 */
 	public void robotInit() {
 		oi.init();
-		crushed = false;
 		// instantiate the command used for the autonomous period
 
 		// autonomousCommand = new Autonomous();
@@ -52,17 +47,19 @@ public class Robot extends TimedRobot {
 		// motorControlThread.start();
 
 		System.out.println("creating ADL thread");
-		// Thread listenerThread = new Thread(ADL);
-		// listenerThread.start();
+		 Thread listenerThread = new Thread(ADL);
+		 listenerThread.start();
 
 		// SmartDashboard.putData("Circle", new DriveCircle());
 		SmartDashboard.putNumber("Speed Cap", 1.0);
 		SmartDashboard.setDefaultNumber("Speed Cap", 1.0);
 		SmartDashboard.putBoolean("Fine Mode", false);
 		SmartDashboard.putNumber("Tolerance", 1.0);
+
 		SmartDashboard.putData("Actuate Hatch", new ActuateHatch());
 		SmartDashboard.putData("Hatch Manual", new ManualHatch());
 		SmartDashboard.putData("Drivetrain", drivetrain.difDrive);
+		SmartDashboard.putNumber("IMU Position (degrees)", 0);
 		SmartDashboard.putNumber("Left Speed Constant", 1.0);
 		SmartDashboard.putNumber("Right Speed Constant", 1.0);
 		SmartDashboard.putData("Toggle Light", new ToggleLimelight());
@@ -83,12 +80,9 @@ public class Robot extends TimedRobot {
 
 	public void autonomousInit() {
 		// schedule the autonomous command (example)
-		if (autonomousCommand != null) {
-			autonomousCommand.start();
-		}
-		crushed = false;
-		autoEnabled = true;
-
+		//if (autonomousCommand != null) {
+		//	autonomousCommand.start();
+		//}
 	}
 
 	/**
@@ -105,10 +99,8 @@ public class Robot extends TimedRobot {
 		// continue until interrupted by another command, remove
 		// this line or comment it out.
 		//
-		if (autonomousCommand != null)
-			autonomousCommand.cancel();
-		autoEnabled = false;
-
+		//if (autonomousCommand != null)
+		//	autonomousCommand.cancel();
 	}
 
 	/**
@@ -116,9 +108,9 @@ public class Robot extends TimedRobot {
 	 * reset subsystems before shutting down.
 	 */
 	public void disabledInit() {
-		if (autoEnabled) {
-			autonomousCommand.cancel();
-		}
+		//if (autoEnabled) {
+		//	autonomousCommand.cancel();
+		//}
 	}
 
 	/**
@@ -132,6 +124,11 @@ public class Robot extends TimedRobot {
 			MultiSpeedController.speedFactor = (SmartDashboard.getNumber("Speed Cap", 1));
 		}
 		SmartDashboard.putData(pdp);
+		//
+		//ADL.fetchData();
+		//ntpReader.printOutTables();
+		SmartDashboard.putNumber("IMU Position (degrees)", ADL.getOrientation());
+		System.out.println(ADL);
 	}
 
 	/**

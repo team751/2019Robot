@@ -7,6 +7,8 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
 import frc.robot.commands.Hatch.HatchDefault;
+import frc.robot.commands.Hatch.SetBottom;
+import frc.robot.commands.Hatch.SetTop;
 
 //ansa made this component :)
 public class Hatch extends Subsystem {
@@ -30,6 +32,8 @@ public class Hatch extends Subsystem {
         this.isUp = true;
         SmartDashboard.putNumber("Up", 0);
         SmartDashboard.putNumber("Down", 127);
+        SmartDashboard.putData("Set Top", new SetTop());
+        SmartDashboard.putData("Set Bottom", new SetBottom());
     }
 
     @Override
@@ -80,13 +84,13 @@ public class Hatch extends Subsystem {
         return;
         }
         if (speed > 0){
-        //speed = (getTopSwitch()) ? 0 : speed;
-        this.setWindowMotorSpeedRaw(speed);
-        return;
+            //speed = (getTopSwitch()) ? 0 : speed;
+            this.setWindowMotorSpeedRaw(speed);
+            return;
         }else{
-        speed = (getBottomSwitch()) ? 0 : speed;
-        this.setWindowMotorSpeedRaw(speed);
-        return;
+            speed = (getBottomSwitch()) ? 0 : speed;
+            this.setWindowMotorSpeedRaw(speed);
+            return;
         }
         //this.setWindowMotorSpeedRaw(speed);
     }

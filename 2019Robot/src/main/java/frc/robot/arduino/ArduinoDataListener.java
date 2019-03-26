@@ -28,7 +28,10 @@ public class ArduinoDataListener implements Runnable {
 		arduinoOverwrite = true;
 
 		// sourceType = PIDSourceType.kDisplacement;
-
+		SmartDashboard.putNumber("Orientation", this.orientation);
+				SmartDashboard.putNumber("Left Side Distance", this.leftDistance);
+				SmartDashboard.putNumber("Right Side Distance", this.rightDistance);
+				SmartDashboard.putNumber("Front Distance", this.frontDistance);
 		connect();
 	}
 
@@ -44,12 +47,16 @@ public class ArduinoDataListener implements Runnable {
 		return rightDistance;
 	}
 
+	public double getFrontDistance() {
+		return frontDistance;
+	}
+
 	@Override
 	public void run() {
 		while (true) {
 			if (arduinoPort == null) {
 				connect();
-				System.out.println("attemptedconnecting");
+				//System.out.println("attemptedconnecting");
 			} else {
 				// System.out.println("fetchingdata");
 				fetchData();
@@ -61,40 +68,54 @@ public class ArduinoDataListener implements Runnable {
 	}
 
 	private void getArduinoMessage() {
-		int bracketIndex = arduinoMessage.indexOf("[");
-		if (bracketIndex == -1) {
-			return;
-		}
-		arduinoMessage = arduinoMessage.substring(bracketIndex);
-		int endOfMessage = arduinoMessage.lastIndexOf(']');
-		int startOfMessage = arduinoMessage.lastIndexOf('[', endOfMessage);
+		try {
+			int bracketIndex = arduinoMessage.indexOf("[");
+			if (bracketIndex == -1) {
+				return;
+			}
+			arduinoMessage = arduinoMessage.substring(bracketIndex);
+			int endOfMessage = arduinoMessage.lastIndexOf(']');
+			int startOfMessage = arduinoMessage.lastIndexOf('[', endOfMessage);
 
-		if (endOfMessage <= startOfMessage) {
-			arduinoMessage += arduinoPort.readString();
-			arduinoOverwrite = false;
-		} else {
-			arduinoMessage = arduinoMessage.substring(startOfMessage + 1, endOfMessage);
-			// System.out.println("Received String: " + message);
-			String[] data = arduinoMessage.split("-");
+			if (endOfMessage <= startOfMessage) {
+				arduinoMessage += arduinoPort.readString();
+				arduinoOverwrite = false;
+			} else {
+				arduinoMessage = arduinoMessage.substring(startOfMessage + 1, endOfMessage);
+				//System.out.println("Received String: " + arduinoMessage);
+				String[] data = arduinoMessage.split("-");
 
-			this.orientation = Double.parseDouble(data[0]);
-			this.leftDistance = Integer.parseInt(data[1]);
-			this.rightDistance = Integer.parseInt(data[2]);
-			this.frontDistance = Integer.parseInt(data[3]);
-			SmartDashboard.putNumber("Orientation", this.orientation);
-			SmartDashboard.putNumber("Left Side Distance", this.leftDistance);
-			SmartDashboard.putNumber("Right Side Distance", this.rightDistance);
-			SmartDashboard.putNumber("Front Distance", this.frontDistance);
+				this.orientation = Double.parseDouble(data[0]);
+				if(data.length > 1) {
+					this.leftDistance = Double.parseDouble(data[1]);
+					
+					if(data.length > 2) {
+						this.rightDistance = Double.parseDouble(data[2]);
 
-			arduinoOverwrite = true;
-		}
+						if(data.length > 3) {
+							this.frontDistance = Double.parseDouble(data[3]);
+						}
+					}
+				}
+				SmartDashboard.putNumber("Orientation", this.orientation);
+				SmartDashboard.putNumber("Left Side Distance", this.leftDistance);
+				SmartDashboard.putNumber("Right Side Distance", this.rightDistance);
+				SmartDashboard.putNumber("Front Distance", this.frontDistance);
+
+				arduinoOverwrite = true;
+				arduinoMessage = "";
+			}
+		}catch(NumberFormatException e){}
 	}
+	
+	public void fetchData() {
 
-	private void fetchData() {
-		if (arduinoOverwrite) {
-			arduinoMessage = arduinoPort.readString();
-		}
 
+		//if (arduinoOverwrite) {
+			arduinoMessage += arduinoPort.readString();
+		//}
+
+		//System.out.println("message is "+ arduinoMessage);
 		getArduinoMessage();
 	}
 
