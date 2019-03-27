@@ -7,9 +7,11 @@ import frc.robot.commands.JoystickDrive;
 
 public class Drivetrain extends Subsystem {
     public DifferentialDrive difDrive;
+    public boolean invertX;
 
     public Drivetrain() {
         difDrive = new DifferentialDrive(Robot.oi.leftGroup, Robot.oi.rightGroup);
+        invertX = false;
     }
 
     @Override
@@ -25,7 +27,11 @@ public class Drivetrain extends Subsystem {
         // } else {
         //     difDrive.arcadeDrive(-x, y, bool);
         // }
-        difDrive.arcadeDrive(-x, y, bool);
+        if(invertX) {
+            difDrive.arcadeDrive(x, y, bool);
+        } else {
+            difDrive.arcadeDrive(-x, y, bool);
+        }
     }
 
 }

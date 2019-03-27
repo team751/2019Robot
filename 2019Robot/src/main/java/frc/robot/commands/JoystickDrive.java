@@ -20,20 +20,15 @@ public class JoystickDrive extends Command {
 		double x = Robot.oi.driverStick.getRawAxis(4);
 		double y = Robot.oi.driverStick.getRawAxis(5);
 
-		// if (Robot.drivetrain.pdp.getVoltage() <
-		// Robot.drivetrain.brownoutVoltageThreshold) {
-		// If the time difference between this brownout and the last
-		// brownout is too long, reduce the power.
-		// long currentTime = System.currentTimeMillis();
-		// if (currentTime - this.lastBrownout >
-		// Robot.drivetrain.brownoutPeriodThreshold) {
-		// Robot.robotDrive.arcadeDrive(y / this.brownoutReductionFactor, x /
-		// this.brownoutReductionFactor, true);
-		// }
-		// this.lastBrownout = currentTime;
-		// } else {
+		// double newX = this.sigmoidCurve(x);
+		// double newY = this.sigmoidCurve(y);
+
 		Robot.drivetrain.arcadeDrive(y, x, true);
-		// }
+
+	}
+
+	private double sigmoidCurve(double x) {
+		return (1.0 / (0.5 + Math.pow(Math.E, -(x + 0.7)))) - 1.0;
 	}
 
 	// Make this return true when this Command no longer needs to run execute()

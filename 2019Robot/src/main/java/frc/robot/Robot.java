@@ -64,6 +64,16 @@ public class Robot extends TimedRobot {
 		SmartDashboard.putNumber("Right Speed Constant", 1.0);
 		SmartDashboard.putData("Toggle Light", new ToggleLimelight());
 		SmartDashboard.putData("Correct Angle", new CorrectAngle());
+		SmartDashboard.putData("Drivetrain", drivetrain.difDrive);
+		SmartDashboard.putBoolean("drivetrain Invert x", drivetrain.invertX);
+		SmartDashboard.putNumber("Left Speed Constant", 1.0);
+		SmartDashboard.putNumber("Right Speed Constant", 1.0);
+		SmartDashboard.putData("Toggle Light", new ToggleLimelight());
+		SmartDashboard.putNumber("Heading to go to(degrees)", 1.0);
+		// SmartDashboard.putData("Go to Heading", new SemiAuto(
+		// 				SmartDashboard.getNumber("Heading to go to(degrees)", 
+		// 										ADL.getOrientation())));
+
 	}
 
 	public void disabledPeriodic() {
@@ -76,6 +86,7 @@ public class Robot extends TimedRobot {
 		}
 
 		SmartDashboard.putData(pdp);
+		hatch.seatMotor.set(0);
 	}
 
 	public void autonomousInit() {

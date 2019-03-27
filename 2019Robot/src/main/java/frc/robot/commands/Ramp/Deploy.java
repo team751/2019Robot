@@ -11,12 +11,12 @@ public class Deploy extends Command {
 
     protected void initialize() {
         Robot.ramp.setBottomSpeed(1);
-        Robot.ramp.setTopSpeed(1);
+        //Robot.ramp.setTopSpeed(1);
     }
 
     protected void execute() {
         Robot.ramp.setBottomSpeed(1);
-        Robot.ramp.setTopSpeed(1);
+        //Robot.ramp.setTopSpeed(1);
     }
 
     protected boolean isFinished() {

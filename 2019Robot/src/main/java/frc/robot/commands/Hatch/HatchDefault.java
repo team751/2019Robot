@@ -15,7 +15,6 @@ public class HatchDefault extends Command {
     // it is started .
     // Any initialization code should be here.
     protected void initialize() {
-
     }
 
     /*

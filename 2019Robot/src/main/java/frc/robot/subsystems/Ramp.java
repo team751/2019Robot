@@ -12,7 +12,6 @@ public class Ramp extends Subsystem {
 
     //Constructor takes Servo Pin
     public Ramp(){
-        topRampMotor = Robot.oi.rampTopMotor;
         bottomRampMotor = Robot.oi.rampBottomMotor;
     }
 
@@ -21,9 +20,9 @@ public class Ramp extends Subsystem {
         this.setDefaultCommand(new RampDefault());
     }
 
-    public void setTopSpeed(double speed){
-        topRampMotor.set(speed);
-    }
+    // public void setTopSpeed(double speed){
+    //     topRampMotor.set(speed);
+    // }
 
     public void setBottomSpeed(double speed){
         bottomRampMotor.set(speed);

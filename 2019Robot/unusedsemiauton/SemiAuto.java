@@ -11,12 +11,17 @@ public class SemiAuto extends Command {
     private double tolerance;
     private double prevError;
     private double prevIntegral;
+    private Double headingToGoTo;
 
     public SemiAuto() {
         super("SemiAuto");
         requires(Robot.drivetrain);
         this.prevError = 0.0;
         this.prevIntegral = 0.0;
+    }
+
+    public SemiAuto(Double headingToGoTo) {
+        this.headingToGoTo = headingToGoTo;
     }
 
     protected void initialize() {
@@ -32,7 +37,9 @@ public class SemiAuto extends Command {
      * initialize() and have an empty execute() method.
      */
     protected void execute() {
-
+        if(headingToGoTo != null) {
+            turnToHeading(headingToGoTo, 0.7, 0.15, 0.3); //TODO(Bobby): tweak these values so they actually work
+        }
     }
 
     // Reset the error and integral calculations from the previous turn or
