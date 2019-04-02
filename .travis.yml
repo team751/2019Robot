@@ -34,4 +34,4 @@ before_install:
 jobs: 
   include:
     - stage: RoboRIO
-    - script: cd 2019Robot && chmod +7 gradlew && ./gradlew assemble
+    - script: cd 2019Robot && chmod 777 gradlew && ./gradlew assemble
