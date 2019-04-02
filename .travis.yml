@@ -1,0 +1,37 @@
+# Code adapted from https://github.com/Ewpratten/FRC-CI/blob/master/.circleci/config.yml
+# MIT License
+# 
+# Copyright (c) 2018 Evan Pratten
+#
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+#
+# The above copyright notice and this permission notice shall be included in all
+# copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+# SOFTWARE.
+
+language: java
+dist: xenial
+
+before_install:
+  - sudo apt update
+  - sudo apt install software-properties-common python-software-properties -y
+  - sudo apt-add-repository ppa:wpilib/toolchain -y && add-apt-repository ppa:openjdk-r/ppa -y && sudo apt update
+  - sudo apt install default-jdk frc-toolchain -y
+  - cd 2019Robot
+
+jobs: 
+  include:
+    - stage: RoboRIO
+    - script: ./gradlew assemble
