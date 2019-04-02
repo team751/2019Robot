@@ -23,6 +23,7 @@
 
 language: java
 dist: xenial
+sudo: required
 
 before_install:
   - sudo apt update
