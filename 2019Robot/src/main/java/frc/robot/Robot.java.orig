@@ -48,20 +48,24 @@ public class Robot extends TimedRobot {
 		// motorControlThread.start();
 
 		System.out.println("creating ADL thread");
-
+<<<<<<< HEAD
 		Thread listenerThread = new Thread(ADL);
 		listenerThread.start();
+=======
+		 Thread listenerThread = new Thread(ADL);
+		 listenerThread.start();
+>>>>>>> afe474bb4400d2fd3d21e6056356abf055f4881b
 
 		// SmartDashboard.putData("Circle", new DriveCircle());
 		SmartDashboard.putNumber("Speed Cap", 1.0);
 		SmartDashboard.setDefaultNumber("Speed Cap", 1.0);
 		SmartDashboard.putBoolean("Fine Mode", false);
 		SmartDashboard.putNumber("Tolerance", 1.0);
-
+<<<<<<< HEAD
 		SmartDashboard.putData("Actuate Hatch", new ActuateHatch());
 		SmartDashboard.putData("Hatch Manual", new ManualHatch());
 		SmartDashboard.putData("Deploy Ramps", new Deploy());
-
+=======
 
 		SmartDashboard.putData("Actuate Hatch", new ActuateHatch());
 		SmartDashboard.putData("Hatch Manual", new ManualHatch());
@@ -71,7 +75,7 @@ public class Robot extends TimedRobot {
 		SmartDashboard.putNumber("Right Speed Constant", 1.0);
 		SmartDashboard.putData("Toggle Light", new ToggleLimelight());
 		SmartDashboard.putData("Correct Angle", new CorrectAngle());
-
+>>>>>>> afe474bb4400d2fd3d21e6056356abf055f4881b
 		SmartDashboard.putData("Drivetrain", drivetrain.difDrive);
 		SmartDashboard.putBoolean("drivetrain Invert x", drivetrain.invertX);
 		SmartDashboard.putNumber("Left Speed Constant", 1.0);
@@ -127,9 +131,15 @@ public class Robot extends TimedRobot {
 	 * reset subsystems before shutting down.
 	 */
 	public void disabledInit() {
+<<<<<<< HEAD
+		if (autoEnabled) {
+			//autonomousCommand.cancel();
+		}
+=======
 		//if (autoEnabled) {
-		//	autonomousCommad.cancel();
+		//	autonomousCommand.cancel();
 		//}
+>>>>>>> afe474bb4400d2fd3d21e6056356abf055f4881b
 	}
 
 	/**
@@ -143,11 +153,16 @@ public class Robot extends TimedRobot {
 			MultiSpeedController.speedFactor = (SmartDashboard.getNumber("Speed Cap", 1));
 		}
 		SmartDashboard.putData(pdp);
+<<<<<<< HEAD
 
+		//System.out.println(ADL);
+=======
+		//
 		//ADL.fetchData();
 		//ntpReader.printOutTables();
 		SmartDashboard.putNumber("IMU Position (degrees)", ADL.getOrientation());
 		System.out.println(ADL);
+>>>>>>> afe474bb4400d2fd3d21e6056356abf055f4881b
 	}
 
 	/**
