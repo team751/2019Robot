@@ -91,19 +91,19 @@ public class Hatch extends Subsystem {
 
     public void setWindowMotorSpeed(double speed) {
 
-        // if (speed == 0){
-        // return;
-        // }
-        // if (speed > 0){
-        // speed = (getTopSwitch()) ? 0 : speed;
-        // this.setWindowMotorSpeedRaw(speed);
-        // return;
-        // }else{
-        // speed = (getBottomSwitch()) ? 0 : speed;
-        // this.setWindowMotorSpeedRaw(speed);
-        // return;
-        // }
+        if (speed == 0){
+        return;
+        }
+        if (speed > 0){
+        speed = (getTopSwitch()) ? 0 : speed;
         this.setWindowMotorSpeedRaw(speed);
+        return;
+        }else{
+        speed = (getBottomSwitch()) ? 0 : speed;
+        this.setWindowMotorSpeedRaw(speed);
+        return;
+        }
+        //this.setWindowMotorSpeedRaw(speed);
     }
 
 }

@@ -2,7 +2,6 @@ package frc.robot;
 
 import frc.robot.arduino.ArduinoDataListener;
 import frc.robot.commands.Hatch.*;
-import frc.robot.commands.Ramp.Deploy;
 import frc.robot.commands.*;
 import frc.robot.subsystems.*;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
@@ -63,7 +62,6 @@ public class Robot extends TimedRobot {
 		SmartDashboard.putNumber("Tolerance", 1.0);
 		SmartDashboard.putData("Actuate Hatch", new ActuateHatch());
 		SmartDashboard.putData("Hatch Manual", new ManualHatch());
-		SmartDashboard.putData("Deploy Ramps", new Deploy());
 		SmartDashboard.putData("Drivetrain", drivetrain.difDrive);
 		SmartDashboard.putBoolean("drivetrain Invert x", drivetrain.invertX);
 		SmartDashboard.putNumber("Left Speed Constant", 1.0);
@@ -124,7 +122,7 @@ public class Robot extends TimedRobot {
 	 */
 	public void disabledInit() {
 		if (autoEnabled) {
-			//autonomousCommand.cancel();
+			autonomousCommand.cancel();
 		}
 	}
 
@@ -140,7 +138,7 @@ public class Robot extends TimedRobot {
 		}
 		SmartDashboard.putData(pdp);
 
-		//System.out.println(ADL);
+		System.out.println(ADL);
 	}
 
 	/**

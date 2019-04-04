@@ -49,8 +49,6 @@ public class SetSeatAngle extends Command {
         Robot.hatch.angle = start + (Robot.hatch.counter.getDistance() * dirrection);
         double dis = Robot.hatch.angle;
 
-
-
         //if (dis != last) System.out.println(dis + "   " + dirrection + "   " + location);
         last = dis;
         //Robot.hatch.angle = (int) (start   + (dis*dirrection));

@@ -119,8 +119,6 @@ public class OI {
 	public Button servoUpButton = new JoystickButton(driverStick, Controller.Y.getButtonMapping());
 	public Button hatchUpButton = new JoystickButton(driverStick, Controller.X.getButtonMapping());
 	public Button hatchDownButton = new JoystickButton(driverStick, Controller.B.getButtonMapping());
-	public Button seatPosButton = new JoystickButton(driverStick, Controller.RB.getButtonMapping());
-	public Button seatNegitiveButton = new JoystickButton(driverStick, Controller.LB.getButtonMapping());
 	public PWMVictorSPX seatMotor = new PWMVictorSPX(7);
 
 	public void init() {

@@ -1,7 +1,6 @@
 package frc.robot.commands.Hatch;
 
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.OI;
 import frc.robot.Robot;
 
@@ -29,31 +28,19 @@ public class HatchDefault extends Command {
     protected void execute() {
         double speed = Robot.oi.driverStick.getRawAxis(OI.Controller.RT.getButtonMapping());
         speed -= Robot.oi.driverStick.getRawAxis(OI.Controller.LT.getButtonMapping());
-        Robot.hatch.setWindowMotorSpeed(speed);   
- 
-        double pos = Robot.oi.seatPosButton.get() ? 0.75 : 0;
-        double neg = Robot.oi.seatNegitiveButton.get() ? 0.75 : 0;
-        Robot.hatch.seatMotor.set(pos-neg);
-
-        if (pos-neg < 0){
-            Robot.hatch.angle -= Robot.hatch.counter.getDistance();
-        }else{
-            Robot.hatch.angle += Robot.hatch.counter.getDistance();
+        Robot.hatch.setWindowMotorSpeed(speed);
+        dirrection = 0;
+        //All angle stuff here
+        if (Math.abs(Robot.hatch.angleTarget - Robot.hatch.angle) > tolerance){
+            if (Robot.hatch.angleTarget - Robot.hatch.angle < 0){
+                dirrection = -1;
+            }else{
+                dirrection = 1;
+            }
+            Robot.hatch.angle += Robot.hatch.counter.getDistance() * dirrection;
+            Robot.hatch.counter.reset();
         }
-        SmartDashboard.putNumber("Current Angle", Robot.hatch.angle);
-
-        // dirrection = 0;
-        // //All angle stuff here
-        // if (Math.abs(Robot.hatch.angleTarget - Robot.hatch.angle) > tolerance){
-        //     if (Robot.hatch.angleTarget - Robot.hatch.angle < 0){
-        //         dirrection = -1;
-        //     }else{
-        //         dirrection = 1;
-        //     }
-        //     Robot.hatch.angle += Robot.hatch.counter.getDistance() * dirrection;
-        //     Robot.hatch.counter.reset();
-        // }
-        // Robot.hatch.seatMotor.set(dirrection);
+        Robot.hatch.seatMotor.set(dirrection);
     }
 
     // Make this return true when this Command no longer needs to run execute()
